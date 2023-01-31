@@ -1,0 +1,10 @@
+{
+	"folders": [
+        {
+            "name": "u-boot-2012.10",
+            "path": "../../uboot/u-boot-2012.10"
+        }
+    ],
+    "settings": {
+    }
+}
