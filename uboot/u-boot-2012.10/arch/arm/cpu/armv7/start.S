@@ -45,6 +45,7 @@ _start: b	reset
 	ldr	pc, _irq
 	ldr	pc, _fiq
 #ifdef CONFIG_SPL_BUILD
+//此处为片内ram运行的uboot，发生异常时不进行其余操作，陷入死循环
 _undefined_instruction: .word _undefined_instruction
 _software_interrupt:	.word _software_interrupt
 _prefetch_abort:	.word _prefetch_abort
@@ -66,7 +67,7 @@ _pad:			.word 0x12345678 /* now 16*4=64 */
 
 .global _end_vect
 _end_vect:
-
+//判断下面标号_TEXT_BASE的位置是否16字节对齐，如果该指令结束时不满足，则填充0xdeadbeef直至16字节对齐
 	.balignl 16,0xdeadbeef
 /*************************************************************************
  *
@@ -82,7 +83,7 @@ _end_vect:
 .globl _TEXT_BASE
 _TEXT_BASE:
 	.word	CONFIG_SYS_TEXT_BASE
-
+//CONFIG_SYS_TEXT_BASE在makefiles中定义，为拷贝到ddr内存中的起始地址
 /*
  * These are defined in the board-specific linker script.
  */
