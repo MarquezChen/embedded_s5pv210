@@ -1,0 +1,20 @@
+1、根据CPU架构，从\arch\arm\cpu目录下寻找对应架构目录，如\arch\arm\cpu\armv7\start.S，这里是uboot程序启动的开始。
+
+/**** S5PV210启动流程 ****
+ 1.初始化硬件（时钟等）
+ 2.把sd卡或nand flash中16K uboot_spl.bin内容加载片内sram运行
+ 3.uboot_spl.bin配置sdram，并把sd卡或nand flash中uboot.bin文件加载到sdram中运行
+ *************************/
+
+2、编译uboot(实现需配置arm-linux-gcc 4.5.1交叉编译工具链环境变量)
+    a.make s5p_goni_config
+    b.make
+3、编译生成的uboot文件：
+    a.uboot:编译生成原始文件
+    b.uboot.bin:经过arm-linux-strip剥离调试信息生成的bin文件
+4、反汇编：arm-linux-objdump u-boot > u-boot-objdump.asm
+5、ldr伪指令，反汇编发现实际并不保存需要跳转的地址，而是利用pc指针，保存一个与pc指针的偏移值。(参考u-boot-objdump.asm文档)
+6、pc寄存器保存当前取指的地址，故比程序当前执行位置+8(2字节)
+7、汇编b和bl跳转指令区别：
+    b: 跳转到指定位置运行
+    bl: 跳转到指定子流程运行完成后回到跳转命令下条指令继续运行
