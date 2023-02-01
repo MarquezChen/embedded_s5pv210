@@ -129,8 +129,11 @@ reset:
 	/*
 	 * set the cpu to SVC32 mode
 	 */
+    //把cpsr寄存器内容读到r0
 	mrs	r0, cpsr
+    //位清除，r0 & 0x1f
 	bic	r0, r0, #0x1f
+    //位置1，r0 | 0xd3
 	orr	r0, r0, #0xd3
 	msr	cpsr,r0
 
@@ -149,7 +152,8 @@ reset:
 	ldr	r0, =_start
 	mcr	p15, 0, r0, c12, c0, 0	@Set VBAR
 #endif
-
+    bl gpio_out
+    bl led1_on
 	/* the mask ROM code should have PLL and others stable */
 #ifndef CONFIG_SKIP_LOWLEVEL_INIT
 	bl	cpu_init_cp15
@@ -555,3 +559,20 @@ fiq:
 
 #endif /* CONFIG_USE_IRQ */
 #endif /* CONFIG_SPL_BUILD */
+gpio_out:
+    ldr r11, =0xE0200280
+    ldr r12, =0x00001111
+    str r12, [r11]
+
+    ldr r11, =0xE0200284
+    ldr r12, =0xF
+    str r12, [r11]
+    mov pc, lr
+
+.global led1_on
+led1_on:
+    ldr r11, =0xE0200284
+    ldr r12, [r11]
+    bic r12, r12, #1
+    str r12, [r11]
+    mov pc, lr

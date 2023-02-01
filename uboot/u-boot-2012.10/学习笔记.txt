@@ -1,4 +1,5 @@
-1、根据CPU架构，从\arch\arm\cpu目录下寻找对应架构目录，如\arch\arm\cpu\armv7\start.S，这里是uboot程序启动的开始。
+第一节：（对应1~11）
+1、根据CPU架构，从/arch/arm/cpu目录下寻找对应架构目录，如/arch/arm/cpu/armv7/start.S，这里是uboot程序启动的开始。
 
 /**** S5PV210启动流程 ****
  1.初始化硬件（时钟等）
@@ -18,3 +19,29 @@
 7、汇编b和bl跳转指令区别：
     b: 跳转到指定位置运行
     bl: 跳转到指定子流程运行完成后回到跳转命令下条指令继续运行
+8、.weak弱标号，若其余地方有定义则放弃该定义
+9、cp15协处理器相关寄存器作用
+    cp15: cache、缓存、mmu内存管理，中断异常向量管理等
+    cp14: debug调试
+    cp12~13: 保留
+    cp11: 双精度浮点数计算
+    cp10: 单精度浮点数计算
+    cp8~9: 保留
+    cp0~7: 留给生产产家使用
+10、使ichache失效原理实际上就是把icache保存的每条指令的有效位都清0，这样cpu便不会从icache取指令。
+11、分支预测技术
+12、问题分析：指令运行跳转不符合预期，原因：1.流水线技术；2.cache保存旧的指令（需清cache）
+13、以十六进制编码查看二进制文件，hexdump -C *.bin
+14、dd命令：
+    if 代表输入文件。如果不指定 if，默认就会从 stdin 中读取输入。
+    of 代表输出文件。如果不指定 of，默认就会将 stdout 作为默认输出。
+    实例：dd if=u-boot.16k of=/dev/sdb seek=1
+
+第二节：
+1、编译流程：预编译->编译([compile].o->.S)->汇编([Assembly].S->.o)->链接([Link].o->)->生成二进制文件([Objdump]->.bin)->制作镜像
+    GCC -> Gnu C Compile -> Gnu Compile Collection
+2、linux vim拷贝A文件某行内容到B文件：
+    a.打开A文件输入 " + 变量名 + 拷贝行数 + yy : "a3yy
+    b.打开B文件输入 " + 变量名 + p : "ap
+3、汇编：arm-linux-as mystart.s -o mystart.o
+        arm-linux-gcc -c mystart.s
