@@ -45,3 +45,9 @@
     b.打开B文件输入 " + 变量名 + p : "ap
 3、汇编：arm-linux-as mystart.s -o mystart.o
         arm-linux-gcc -c mystart.s
+4、.o文件包含三个段
+    a.text段：代码
+    b.data段：已初始化全局变量
+    c.bss段：未初始化，系统自动设置为0的全局变量
+5、可使用arm-linux-size 查看.o文件三个段的情况。
+6、
