@@ -50,4 +50,4 @@
     b.data段：已初始化全局变量
     c.bss段：未初始化，系统自动设置为0的全局变量
 5、可使用arm-linux-size 查看.o文件三个段的情况。
-6、
+6、制作二进制.bin文件：arm-linux-objcopy -O binary myboot myboot.bin
