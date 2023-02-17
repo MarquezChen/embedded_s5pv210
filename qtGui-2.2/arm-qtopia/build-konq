@@ -1,0 +1,13 @@
+#!/bin/bash
+
+rm -fr konq
+
+tar xfz konq.tar.gz
+
+cd konq
+source ../qtopia-2.2.0-FriendlyARM/setQpeEnv
+CC=arm-linux-gcc CXX=arm-linux-g++  LDFLAGS=-ldl CROSS_COMPILE=1 ./configure --enable-embedded --enable-qt-embedded --enable-qpe --disable-debug --enable-static --disable-shared --disable-mt --without-ssl --with-qt-dir=$QTDIR --with-qt-includes=$QTDIR/include --with-qt-libraries=$QPEDIR/lib --with-qtopia-dir=$QPEDIR --with-gui=qpe --host=arm-linux --target=arm-linux
+
+#make || (cd konq-embed/src; arm-linux-g++  -Wnon-virtual-dtor -Wno-long-long -Wundef -Wall -W -Wpointer-arith -Wmissing-prototypes -Wwrite-strings -ansi -D_XOPEN_SOURCE=500 -D_BSD_SOURCE -Wcast-align -Wconversion -DNDEBUG -DNO_DEBUG -O2 -fno-exceptions -fno-check-new -fno-rtti -D_QT_QPE_ -DQT_CLEAN_NAMESPACE -DQT_NO_COMPAT -DQT_NO_ASCII_CAST   -ldl -o konqueror  -L../../../qtopia-2.2.0-FriendlyARM/qtopia/lib -L/usr/local/kde/lib   main.o mainwindowbase.o htmlview.o popuphandler.o view.o run.o browseriface.o bookmarks.o preferences.o preferencesimpl.o mainwindow_qpe.o mainwindow_x11.o mainwindow_kiosk.o xmltree.o bookmarkeditor.o bookmarkeditorimpl.o bookmarkedit.o bookmarkeditimpl.o mainwindebug.o   ../../konq-embed/kdesrc/khtml/ecma/.libs/libkjs_html_i.a ../../konq-embed/kdesrc/kjs/.libs/libkjs.a  ../../konq-embed/kdesrc/khtml/.libs/libkhtml_i.a -lqte -lqpe )
+make
+arm-linux-strip --strip-all konq-embed/src/konqueror
