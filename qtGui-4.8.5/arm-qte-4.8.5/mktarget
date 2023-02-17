@@ -1,0 +1,57 @@
+#!/bin/bash
+
+TARGET_DIR=$PWD
+cp font/DroidSansFallback.ttf /usr/local/Trolltech/QtEmbedded-4.8.5-arm/lib/fonts
+
+cd /
+list=`cat << EOF
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/examples/widgets/wiggly/wiggly
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/examples/painting/concentriccircles/concentriccircles
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/lib
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/plugins
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/deform/deform
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/deform/pathdeform.html
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/embeddedsvgviewer/spheres.svg
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/embeddedsvgviewer/embeddedsvgviewer
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/embeddedsvgviewer/shapes.svg
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/embeddedsvgviewer/files/default.svg
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/embeddedsvgviewer/files/v-slider-handle.svg
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/embeddedsvgviewer.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/desktopservices_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/deform.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/flightinfo_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/raycasting.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/digiflip.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/styledemo.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/styledemo_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/mediaplayer.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/weatherinfo.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/concentriccircles.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/context2d_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/wiggly.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/lightmaps.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/elasticnodes.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/wiggly_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/ftp_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/embeddedsvgviewer_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/anomaly_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/flickable.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/softkeys_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/fridgemagnets_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/saxbookmarks_s60.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/screenshots/pathstroke.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/slides/demo_4.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/slides/demo_1.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/slides/demo_2.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/slides/demo_6.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/slides/demo_3.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/slides/demo_5.png
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/fluidlauncher
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher/config.xml
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/styledemo/styledemo
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/pathstroke/pathstroke.html
+usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/pathstroke/pathstroke
+EOF
+`
+tar cfvz $TARGET_DIR/target-qte-4.8.5-to-devboard.tgz  $list
+tar cfvz $TARGET_DIR/target-qte-4.8.5-to-hostpc.tgz usr/local/Trolltech/QtEmbedded-4.8.5-arm

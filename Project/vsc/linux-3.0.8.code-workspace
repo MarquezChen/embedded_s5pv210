@@ -1,0 +1,10 @@
+{
+	"folders": [
+        {
+            "name": "linux-3.0.8",
+            "path": "../../kernel/linux-3.0.8"
+        }
+    ],
+    "settings": {
+    }
+}
